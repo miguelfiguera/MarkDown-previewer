@@ -7,7 +7,54 @@ import { marked } from 'marked';
 function App() {
 const [markdown,setMarkdown]=useState('')
 
-const theInput=document.getElementById('markDownInput')
+marked.use({
+  breaks:true
+})
+
+
+const obj={
+  markdown: `
+  # I rule the world
+
+  ## and rule the no-world. 
+
+  Heres some code, \`<div></div>\`, between 2 backticks.
+
+  \`\`\`
+// this is multi-line code:
+
+function anotherExample(firstLine, lastLine) {
+  if (firstLine == '\`\`\`' && lastLine == '\`\`\`') {
+    return multiLineCode;
+  }
+}
+\`\`\`
+
+1. And there are numbered lists too.
+
+You can also make text **bold**... whoa!
+Or _italic_.
+Or... wait for it... **_both!_**
+And feel free to go crazy ~~crossing stuff out~~.
+
+There's also [links](https://www.freecodecamp.org), and
+> Block Quotes!
+
+  
+![freeCodeCamp Logo](https://cdn.freecodecamp.org/testable-projects-fcc/images/fcc_secondary.svg)
+  
+  
+  `
+}
+
+
+useEffect(()=>{
+function setInitialMessageAs(){
+  setMarkdown(obj.markdown)
+}
+  
+setInitialMessageAs()
+},[])
 
 
   const inputStyle = {
@@ -52,10 +99,10 @@ const theInput=document.getElementById('markDownInput')
               </h4>
             </div>
             <div className="input" style={inputStyle}>
-              <textarea
+              <textarea id="editor"
                 className="input"
+                defaultValue={obj.markdown}
                 style={inputStyle}
-                value={markdown}
                 onChange={(e) => {
                   setMarkdown(e.target.value);
                 }}
@@ -73,7 +120,7 @@ const theInput=document.getElementById('markDownInput')
                 </Badge>
               </h4>
             </div>
-            <div
+            <div id="preview"
               style={outputStyle}
               dangerouslySetInnerHTML={{
                 __html: marked(markdown),
