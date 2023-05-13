@@ -98,7 +98,7 @@ setInitialMessageAs()
                 </Badge>
               </h4>
             </div>
-            <div className="input" style={inputStyle}>
+            <div className="input overflow-auto" style={inputStyle}>
               <textarea id="editor"
                 className="input"
                 defaultValue={obj.markdown}
@@ -120,7 +120,7 @@ setInitialMessageAs()
                 </Badge>
               </h4>
             </div>
-            <div id="preview"
+            <div className='container overflow-auto' id="preview"
               style={outputStyle}
               dangerouslySetInnerHTML={{
                 __html: marked(markdown),
